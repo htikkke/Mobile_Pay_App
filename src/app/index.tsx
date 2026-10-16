@@ -1,98 +1,107 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.logo}>YPay</Text>
+        <Text style={styles.greeting}>Welcome back 👋</Text>
+      </View>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+      <View style={styles.balanceCard}>
+        <Text style={styles.balanceLabel}>Total Balance</Text>
+        <Text style={styles.balance}>$2,450.00</Text>
+        <Text style={styles.cardFooter}>Your wallet balance</Text>
+      </View>
+      <View style={styles.actions}>
+        <TouchableOpacity style={styles.actionButton}>
+          <Text style={styles.actionIcon}>↔</Text>
+          <Text style={styles.actionLabel}>Transfer</Text>
+        </TouchableOpacity>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+        <TouchableOpacity style={styles.actionButton}>
+          <Text style={styles.actionIcon}>▦</Text>
+          <Text style={styles.actionLabel}>Scan</Text>
+        </TouchableOpacity>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+        <TouchableOpacity style={styles.actionButton}>
+          <Text style={styles.actionIcon}>⇄</Text>
+          <Text style={styles.actionLabel}>Fx Rate</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.actionButton}>
+          <Text style={styles.actionIcon}>◷</Text>
+          <Text style={styles.actionLabel}>History</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: "#F5F7FB",
+    padding: 24,
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+  header: {
+    marginTop: 16,
+    marginBottom: 28,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+  logo: {
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#2563EB",
   },
-  title: {
-    textAlign: 'center',
+  greeting: {
+    fontSize: 16,
+    color: "#64748B",
+    marginTop: 8,
   },
-  code: {
-    textTransform: 'uppercase',
+  balanceCard: {
+    backgroundColor: "#2563EB",
+    borderRadius: 24,
+    padding: 24,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  balanceLabel: {
+    color: "#DBEAFE",
+    fontSize: 16,
+  },
+  balance: {
+    color: "#FFFFFF",
+    fontSize: 34,
+    fontWeight: "bold",
+    marginVertical: 16,
+  },
+  cardFooter: {
+    color: "#DBEAFE",
+    fontSize: 14,
+  },
+  actions: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 24,
+  },
+
+  actionButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    padding: 12,
+    width: "23%",
+    minHeight: 90,
+  },
+
+  actionIcon: {
+    fontSize: 26,
+    color: "#2563EB",
+  },
+
+  actionLabel: {
+    fontSize: 12,
+    color: "#334155",
+    marginTop: 8,
   },
 });
