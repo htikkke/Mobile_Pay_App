@@ -1,5 +1,6 @@
 import ActionButton from "@/components/ActionButton";
 import BalanceCard from "@/components/BalanceCard";
+import Transactions from "@/components/Transactions";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -15,6 +16,7 @@ export default function HomeScreen() {
         balance={2450.0}
         footer="Your Wallet balance"
       />
+      <Transactions />
       <View style={styles.actions}>
         <ActionButton label="Transfer" icon="↔" onPress={() => {}} />
         <ActionButton label="Scan" icon="▦" onPress={() => {}} />
