@@ -1,4 +1,5 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import ActionButton from "@/components/ActionButton";
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
@@ -15,25 +16,10 @@ export default function HomeScreen() {
         <Text style={styles.cardFooter}>Your wallet balance</Text>
       </View>
       <View style={styles.actions}>
-        <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionIcon}>↔</Text>
-          <Text style={styles.actionLabel}>Transfer</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionIcon}>▦</Text>
-          <Text style={styles.actionLabel}>Scan</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionIcon}>⇄</Text>
-          <Text style={styles.actionLabel}>Fx Rate</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionIcon}>◷</Text>
-          <Text style={styles.actionLabel}>History</Text>
-        </TouchableOpacity>
+        <ActionButton label="Transfer" icon="↔" onPress={() => {}} />
+        <ActionButton label="Scan" icon="▦" onPress={() => {}} />
+        <ActionButton label="Fx Rate" icon="⇄" onPress={() => {}} />
+        <ActionButton label="History" icon="◷" onPress={() => {}} />
       </View>
     </SafeAreaView>
   );
