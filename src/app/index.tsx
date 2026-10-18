@@ -1,10 +1,12 @@
 import ActionButton from "@/components/ActionButton";
 import BalanceCard from "@/components/BalanceCard";
 import Transactions from "@/components/Transactions";
+import { useRouter } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
+  const router = useRouter();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -18,10 +20,26 @@ export default function HomeScreen() {
       />
       <Transactions />
       <View style={styles.actions}>
-        <ActionButton label="Transfer" icon="↔" onPress={() => {}} />
-        <ActionButton label="Scan" icon="▦" onPress={() => {}} />
-        <ActionButton label="Fx Rate" icon="⇄" onPress={() => {}} />
-        <ActionButton label="History" icon="◷" onPress={() => {}} />
+        <ActionButton
+          label="Transfer"
+          icon="↔"
+          onPress={() => router.push("/transfer")}
+        />
+        <ActionButton
+          label="Scan"
+          icon="▦"
+          onPress={() => router.push("/scan")}
+        />
+        <ActionButton
+          label="Fx Rate"
+          icon="⇄"
+          onPress={() => router.push("/fxrate")}
+        />
+        <ActionButton
+          label="History"
+          icon="◷"
+          onPress={() => router.push("/history")}
+        />
       </View>
     </SafeAreaView>
   );
