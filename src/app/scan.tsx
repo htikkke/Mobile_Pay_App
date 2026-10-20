@@ -1,10 +1,37 @@
-import { StyleSheet, Text, View } from "react-native";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import { useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function ScanScreen() {
+  const [permission, requestPermission] = useCameraPermissions();
+  const [scannedData, setScannedData] = useState<string | null>(null);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Scan QR Code</Text>
       <Text style={styles.description}>Scan a QR code to make a payment.</Text>
+      {permission === null ? (
+        <Text>Checking camera permission...</Text>
+      ) : permission.granted ? (
+        <CameraView
+          style={styles.camera}
+          facing="back"
+          barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
+          onBarcodeScanned={({ data }) =>
+            scannedData ? undefined : setScannedData(data)
+          }
+        />
+      ) : (
+        <Pressable style={styles.permissionButton} onPress={requestPermission}>
+          <Text style={styles.permissionButtonText}>
+            Ask for camera permission
+          </Text>
+        </Pressable>
+      )}
+      {scannedData ? (
+        <Text>{scannedData}</Text>
+      ) : (
+        <Text>Point your camera at QR code!</Text>
+      )}
     </View>
   );
 }
@@ -12,20 +39,49 @@ export default function ScanScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: "#F1F5F9",
+    paddingHorizontal: 24,
+    paddingTop: 32,
     alignItems: "center",
-    padding: 24,
-    backgroundColor: "#F8FAFC",
   },
+
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#2563EB",
-    marginBottom: 12,
+    fontSize: 28,
+    fontWeight: "800",
+    color: "#0F172A",
+    marginBottom: 8,
+    textAlign: "center",
   },
+
   description: {
     fontSize: 15,
+    lineHeight: 23,
     color: "#64748B",
     textAlign: "center",
+    marginBottom: 28,
+    maxWidth: 280,
+  },
+
+  camera: {
+    width: "100%",
+    height: 380,
+    borderRadius: 24,
+    overflow: "hidden",
+    backgroundColor: "#0F172A",
+  },
+  permissionButton: {
+    backgroundColor: "#2563EB",
+    paddingVertical: 16,
+    paddingHorizontal: 28,
+    borderRadius: 16,
+    alignItems: "center",
+    width: "100%",
+    marginTop: 20,
+  },
+
+  permissionButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "700",
   },
 });
