@@ -16,8 +16,8 @@ export default function ScanScreen() {
           style={styles.camera}
           facing="back"
           barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
-          onBarcodeScanned={({ data }) =>
-            scannedData ? undefined : setScannedData(data)
+          onBarcodeScanned={
+            scannedData ? undefined : ({ data }) => setScannedData(data)
           }
         />
       ) : (
@@ -28,7 +28,15 @@ export default function ScanScreen() {
         </Pressable>
       )}
       {scannedData ? (
-        <Text>{scannedData}</Text>
+        <View>
+          <Text>{scannedData}</Text>
+          <Pressable
+            onPress={() => setScannedData(null)}
+            style={styles.permissionButton}
+          >
+            Scan again
+          </Pressable>
+        </View>
       ) : (
         <Text>Point your camera at QR code!</Text>
       )}
