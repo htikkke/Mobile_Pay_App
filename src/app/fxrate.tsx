@@ -1,14 +1,24 @@
 import { StyleSheet, Text, View } from "react-native";
 
 export default function fxrate() {
+  const currencies = [
+    { id: 1, code: "USD", rate: 3500, name: "US Dollar" },
+    { id: 2, code: "THB", rate: 200, name: "Thai Baht" },
+    { id: 3, code: "SGD", rate: 3000, name: "Singapore Dollar" },
+  ];
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Exchange Rates</Text>
-
-      <View style={styles.rateCard}>
-        <Text style={styles.currency}>USD → MMK</Text>
-        <Text style={styles.rate}>1 USD = -- MMK</Text>
-      </View>
+      {currencies.map((currency) => {
+        return (
+          <View style={styles.rateCard} key={currency.id}>
+            <Text style={styles.currency}>{currency.name} → MMK</Text>
+            <Text style={styles.rate}>
+              1 {currency.code} = {currency.rate.toLocaleString()} MMK
+            </Text>
+          </View>
+        );
+      })}
 
       <Text style={styles.note}>Exchange rates will be added later.</Text>
     </View>
@@ -32,6 +42,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     borderColor: "#E2E8F0",
+    marginBottom: 24,
   },
   currency: {
     fontSize: 16,
