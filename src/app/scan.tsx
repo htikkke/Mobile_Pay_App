@@ -1,8 +1,10 @@
 import { CameraView, useCameraPermissions } from "expo-camera";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function ScanScreen() {
+  const router = useRouter();
   const [permission, requestPermission] = useCameraPermissions();
   const [scannedData, setScannedData] = useState<string | null>(null);
   return (
@@ -29,7 +31,18 @@ export default function ScanScreen() {
       )}
       {scannedData ? (
         <View>
-          <Text>{scannedData}</Text>
+          <Text
+            onPress={() =>
+              router.push({
+                pathname: "/paymentConfirmation",
+                params: {
+                  scannedData,
+                },
+              })
+            }
+          >
+            {scannedData}
+          </Text>
           <Pressable
             onPress={() => setScannedData(null)}
             style={styles.permissionButton}
