@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 });
 
 const data = [
-  { id: "1", name: "Coffee Shop", date: "Oct 16", amount: 5.5 },
+  { id: "1", name: "Coffee Shop", date: "Oct 16", amount: -100 },
   { id: "2", name: "Online Shopping", date: "Oct 15", amount: 32.0 },
   { id: "3", name: "Salary", date: "Oct 14", amount: 850.0 },
 ];
@@ -67,6 +67,7 @@ export default function Transactions() {
   return (
     <View style={styles.container}>
       <FlatList
+        ListEmptyComponent={<Text>No transactions yet.</Text>}
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
